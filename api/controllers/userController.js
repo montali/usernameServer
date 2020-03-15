@@ -7,8 +7,9 @@ var mongoose = require("mongoose"),
 exports.getUserID = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) res.send(err);
-    if (user.hasOwn("connectionID")) res.send(user.connectionID);
-    else res.status(404).send();
+    if (user != null) {
+      if (user.connectionID != "") res.send(user.connectionID);
+    } else res.status(404).send();
   });
 };
 exports.signUp = function(req, res) {
