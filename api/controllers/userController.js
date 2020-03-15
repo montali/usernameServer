@@ -15,7 +15,7 @@ exports.getUserID = function(req, res) {
 exports.signUp = function(req, res) {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     User.findOne({ username: req.params.username }, function(err, user) {
-      if (user.hasOwn("username")) {
+      if (user != null) {
         res.status(409).status();
         return;
       }
