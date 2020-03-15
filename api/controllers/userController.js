@@ -7,7 +7,7 @@ var mongoose = require("mongoose"),
 exports.getUserID = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) res.send(err);
-    if (typeof user.connectionID !== undefined) res.send(user.connectionID);
+    if (user.hasOwn("connectionID")) res.send(user.connectionID);
     else res.status(404).send();
   });
 };
