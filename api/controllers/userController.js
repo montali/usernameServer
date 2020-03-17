@@ -15,7 +15,6 @@ exports.getUserID = function(req, res) {
 
 exports.getUsername = function(req, res) {
   User.findOne({ connectionID: req.params.id }, function(err, user) {
-    console.log(user);
     if (err) res.send(err);
     if (user != null) {
       if (user.username != "") res.send(user.username);
