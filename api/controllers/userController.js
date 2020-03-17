@@ -12,6 +12,17 @@ exports.getUserID = function(req, res) {
     } else res.status(404).send();
   });
 };
+
+exports.getUsername = function(req, res) {
+  User.findOne({ connectionID: req.params.id }, function(err, user) {
+    console.log(user);
+    if (err) res.send(err);
+    if (user != null) {
+      if (user.username != "") res.send(user.username);
+    } else res.status(404).send();
+  });
+};
+
 exports.signUp = function(req, res) {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     User.findOne({ username: req.params.username }, function(err, user) {
