@@ -12,4 +12,5 @@ module.exports = function(app) {
     .delete(userController.logout);
 
   app.route("/username/:id").get(userController.getUsername);
+  app.route("/check/:username").get(userController.checkLogin);
 };

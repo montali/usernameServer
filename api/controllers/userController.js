@@ -66,6 +66,25 @@ exports.login = function(req, res) {
     }
   });
 };
+
+exports.checkLogin = function(req, res) {
+  User.findOne({ username: req.params.username }, function(err, user) {
+    if (err || user == null) res.status(401).send(err);
+    else {
+      bcrypt.compare(req.body.password, user.password, function(
+        cryptErr,
+        hashRes
+      ) {
+        if (hashRes) {
+          res.send(req.params.username);
+        } else if (cryptErr) {
+          res.status(401).send();
+        }
+      });
+    }
+  });
+};
+
 exports.logout = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, user) {
     if (err) res.send(err);
