@@ -47,7 +47,7 @@ exports.signUp = function(req, res) {
 
 exports.login = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, user) {
-    if (err || user == null) res.status(401).send(err);
+    if (err || user == null) res.status(403).send(err);
     else {
       bcrypt.compare(req.body.password, user.password, function(
         cryptErr,
@@ -60,7 +60,7 @@ exports.login = function(req, res) {
           res.send(req.params.username);
         } else if (cryptErr) {
           // Passwords don't match
-          res.status(401).send();
+          res.status(403).send();
         }
       });
     }
@@ -69,7 +69,7 @@ exports.login = function(req, res) {
 
 exports.checkLogin = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, user) {
-    if (err || user == null) res.status(401).send(err);
+    if (err || user == null) res.status(403).send(err);
     else {
       bcrypt.compare(req.body.password, user.password, function(
         cryptErr,
@@ -78,7 +78,7 @@ exports.checkLogin = function(req, res) {
         if (hashRes) {
           res.send(req.params.username);
         } else if (cryptErr) {
-          res.status(401).send();
+          res.status(403).send();
         }
       });
     }
