@@ -5,9 +5,6 @@ var express = require("express"),
   User = require("./api/models/userModel"), //created model loading here
   bodyParser = require("body-parser");
 
-var fs = require("fs");
-var https = require("https");
-
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/userdb");
@@ -27,15 +24,6 @@ app.use(function(req, res, next) {
 var routes = require("./api/routes/userRoutes"); //importing route
 routes(app); //register the route
 
-//app.listen(port);
-https
-  .createServer(
-    {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.crt")
-    },
-    app
-  )
-  .listen(port, function() {
-    console.log("Example app listening!");
-  });
+app.listen(port);
+
+console.log("RESTful API server started on: " + port);
